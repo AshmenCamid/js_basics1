@@ -1,33 +1,49 @@
-<script>
-let numbers = [];
+const numInput = document.getElementById("num");
+const elementTxt = document.getElementById("element");
+const sumTxt = document.getElementById("sum");
+const highTxt = document.getElementById("high");
+const lowTxt = document.getElementById("low");
+const insertBtn = document.getElementById("insertBtn");
+const deleteBtn = document.getElementById("deleteBtn");
 
-function insertNumber(){
-    let input = document.getElementById("numberInput").value;
-    if (input ==="") return;
+let array = [];
 
-    let num = parseInt(input);
-    numbers.push(num);
+insertBtn.onclick = function() {
+    let num = parseInt(numInput.value);
+    if (num == num) { 
+        array.push(num);
+        updateDisplay();
+    } else
+        alert("tarunga uy")
+    numInput.value = ""; 
+};
+
+deleteBtn.onclick = function() {
+    array = [];
     updateDisplay();
-    
-    Document.getElementById("numberInput").value = "";
+};
+
+function updateDisplay() {
+    elementTxt.innerHTML = "";
+    sumTxt.innerHTML = "";
+    highTxt.innerHTML = "";
+    lowTxt.innerHTML = "";
+
+    if (array.length > 0) {
+        elementTxt.innerHTML = "";
+        let sum = 0;
+        let highest = array[0];
+        let lowest = array[0];
+
+        for (let i = 0; i < array.length; i++) {
+            sum += array[i];
+            if (array[i] > highest) highest = array[i];
+            if (array[i] < lowest) lowest = array[i];
+            elementTxt.innerHTML += array[i] + "<br>";
+        }
+
+        sumTxt.innerHTML = sum;
+        highTxt.innerHTML = highest;
+        lowTxt.innerHTML = lowest;
+    }
 }
- function deletAll() {
-    numbers =[];
-    updateDisplay();
- }
- function updateDisplay() { let numberList = document.getElementById("numberList");
-    numberList.innerHTML = numbers.join("<br>");
-
-    let sum = numbers.reduce((a,b) => a+b,0);
-    let highest = numbers.length > 0 ?
-    Math.max(...numbers) : 0;
-    let lowest = numbers.length > 0 ? Math.min(...numbers) : 0;
-
-    document.getElementById("sum").textContent=sum;
-    document.getElementById("highest").textContent=highest;
-    document.getElementById("lowest").textContent=lowest;
- } 
- </script>
-
-
-
